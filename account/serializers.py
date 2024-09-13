@@ -12,6 +12,7 @@ class UserSerializer(serializers.ModelSerializer):
             'name',
             'get_avatar',
             'age',
+            'slug',
             'is_active',
             'is_superuser',
             'is_staff',

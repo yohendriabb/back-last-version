@@ -11,6 +11,7 @@ def me(request):
         'id': request.user.id,
         'name': request.user.name,
         'age': request.user.age,
+        'slug': request.user.slug,
         'email': request.user.email,
         'avatar': request.user.get_avatar(),
         'is_superuser': request.user.is_superuser,
@@ -30,6 +31,7 @@ def signup(request):
         'name': data.get('name'),
         'avatar': data2.get('avatar'),
         'age': data.get('age'),
+        'slug': data.get('slug'),
         'password1': data.get('password1'),
         'password2': data.get('password2'),
     })

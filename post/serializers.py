@@ -47,14 +47,17 @@ class ReserveSerializer(serializers.ModelSerializer):
         
 class DateSerializer(serializers.ModelSerializer):
     date_at = serializers.DateTimeField(format="%Y-%m-%d")
+    doctor = serializers.StringRelatedField(read_only= True, many=True)
 
     class Meta:
         model = Date
         fields = (
             'name',
             'email',
+            'slug',
             'phone',
             'date_at',
+            'doctor'
     )
 
 class ServicesSerializer(serializers.ModelSerializer):
@@ -63,6 +66,18 @@ class ServicesSerializer(serializers.ModelSerializer):
         fields = (
             'id',
             'title',
+            'slug',
+            'description',
+            'get_thumbnails',
+        )
+
+class ServicesDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Services
+        fields = (
+            'id',
+            'title',
+            'slug',
             'description',
             'get_thumbnails',
         )
@@ -77,11 +92,12 @@ class SpecialtySerializer(serializers.ModelSerializer):
 
 
 class DoctorSerializer(serializers.ModelSerializer):
+    specialty = serializers.StringRelatedField(read_only= True, many=True)
     class Meta:
         model = Doctor
         fields = (
             'specialty',
-            'image',
+            'get_thumbnails',
             'name',
             'description',
         )

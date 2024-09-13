@@ -4,7 +4,7 @@ from rest_framework.decorators import api_view,  permission_classes
 from rest_framework.permissions import AllowAny
 from rest_framework import generics
 
-from .serializers import ReserveSerializer, SpecialtySerializer, DoctorSerializer, DateSerializer, ServicesSerializer
+from .serializers import ReserveSerializer, SpecialtySerializer, DoctorSerializer, DateSerializer, ServicesSerializer, ServicesDetailSerializer
 from .models import Reserve, Doctor, Specialty, Date, Services
 from .forms import ReserveForm, DateForm,SpecialtyForm, DoctorForm, ServicesForm
 
@@ -43,6 +43,7 @@ def date_create(request):
 
 
 @api_view(['POST'])
+@permission_classes((AllowAny, ))
 def date_create(request):
   form = DateForm(request.data)
   if form.is_valid():
@@ -100,7 +101,7 @@ def date_list(request):
 
     return JsonResponse(serializer.data, safe=False)
 
-
+# Detalles
 
 @api_view(['GET'])
 @permission_classes((AllowAny, ))
@@ -112,12 +113,22 @@ def services_list(request):
     return JsonResponse(serializer.data, safe=False)
 
 
+@api_view(['GET'])
+@permission_classes((AllowAny, ))
+def services_detail(request, slug):
+    services = Services.objects.all(slug=slug)
+
+    serializer = ServicesDetailSerializer(services)
+    
+    return JsonResponse(serializer.data, safe=False)
+
 
 @api_view(['GET'])
+@permission_classes((AllowAny, ))
 def doctor_list(request):
 
     doctor = Doctor.objects.all()
-    serializer = DoctorSerializer(doctor, many=True)
+    serializer = DoctorSerializer(instance=doctor,  many = True)
 
     return JsonResponse(serializer.data, safe=False)
 

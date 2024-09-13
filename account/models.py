@@ -33,7 +33,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     email = models.EmailField(blank=True, default='', unique=True)
     name = models.CharField(max_length=250, blank=True, default='')
-    slugs = models.SlugField(blank=True, null=True)
+    slug = models.SlugField(default="red")
     avatar = models.ImageField(upload_to='avatars', blank=True, null=True)
     age = models.DateTimeField(blank=True, null=True)
 
@@ -47,9 +47,11 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     objects = CustomUserManager()
 
-    def calcular_años(self):
-        return datetime.date.year() - self.age.year
-    #edad = datetime.datetime.now().year - fecha_nacimiento.year
+    def save(self, *args, **kwargs):
+        value = self.name
+        self.slug = slugify(value, allow_unicode=True)
+        super().save(*args, **kwargs)
+
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
         super(User, self).save(*args, **kwargs)

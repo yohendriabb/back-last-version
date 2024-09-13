@@ -8,7 +8,7 @@ admin.site.register(Specialty)
 admin.site.register(Services)
 
 class DateAdmin(admin.ModelAdmin):
-    list_display  = ['name', 'id', 'email', 'phone', 'date_at',]
+    list_display  = ['name', 'id', 'slug', 'email', 'phone', 'date_at', ]
 
 
 
