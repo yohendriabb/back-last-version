@@ -15,7 +15,12 @@ SECRET_KEY = 'django-insecure-5@zij8vzeq+lb8)w&#sje7+f8t-xev^b5xrsfd3sayk@zz=ui5
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = [
+    'https://yohendriabb.pythonanywhere.com',
+    'https://reserves-frontend.vercel.app',
+    #'http://127.0.0.1:8000',
+    #'http://localhost:5173'
+]
 
 AUTH_USER_MODEL = 'account.User' 
 
@@ -39,12 +44,16 @@ SIMPLE_JWT = {
 
 }
 CORS_ALLOWED_ORIGINS =[
-    'http://localhost:5173',
-    'http://localhost:3000',
+    'https://yohendriabb.pythonanywhere.com',
+    'https://reserves-frontend.vercel.app',
+    #'http://localhost:5173',
+    #'http://localhost:3000',
 ]
-CSRF_TRUSTED_ORIGINS =[ 
-    'http://localhost:5173',
-    'http://localhost:3000',
+CSRF_TRUSTED_ORIGINS =[
+    'https://yohendriabb.pythonanywhere.com',
+    'https://reserves-frontend.vercel.app',
+    #'http://localhost:5173',
+    #'http://localhost:3000',
 ]
 
 
@@ -80,7 +89,7 @@ ROOT_URLCONF = 'reserves_back.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR, os.path.join('template')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -152,4 +161,4 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-WEBSITE_URL = 'http://127.0.0.1:8000'
+WEBSITE_URL = 'https://yohendriabb.pythonanywhere.com'

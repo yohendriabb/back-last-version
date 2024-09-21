@@ -1,4 +1,5 @@
 from django.urls import path 
+
 from .api import (
     post_list, 
     doctor_list,
@@ -14,7 +15,8 @@ from .api import (
 
 
 urlpatterns = [
-     path('', post_list, name="post_list"),
+    
+     path('post-list/', post_list, name="post_list"),
      path('doc-list/', doctor_list, name="doc-list"),
      path('specialty-list/', specialty_list, name="especialty-list"),
      path('reserve-create/', post_create, name='create-post'),
