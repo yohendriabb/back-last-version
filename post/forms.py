@@ -15,6 +15,7 @@ class DateForm(ModelForm):
         fields = (
             'name',
             'email',
+            'description',
             'phone',
             'date_at',
     )

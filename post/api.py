@@ -1,10 +1,12 @@
 
 from django.http import JsonResponse 
+from rest_framework.response import Response
 from rest_framework.decorators import api_view,  permission_classes
 from rest_framework.permissions import AllowAny
 from rest_framework import generics
+from rest_framework.views import APIView
 
-from .serializers import ReserveSerializer, SpecialtySerializer, DoctorSerializer, DateSerializer, ServicesSerializer, ServicesDetailSerializer
+from .serializers import ReserveSerializer, SpecialtySerializer, DoctorSerializer, DateSerializer, ServicesSerializer, ServicesDetailSerializer, DoctorDetailSerializer
 from .models import Reserve, Doctor, Specialty, Date, Services
 from .forms import ReserveForm, DateForm,SpecialtyForm, DoctorForm, ServicesForm
 
@@ -26,23 +28,6 @@ def post_create(request):
 
 
 @api_view(['POST'])
-def date_create(request):
-   form = DateForm(request.data)
-   if form.is_valid():
-    date = form.save(commit=False)
-    date.save()
-
-    serializer = DateSerializer(date)
-
-    return JsonResponse(serializer.data, safe=False)
-   
-   else:
-
-    return JsonResponse({'error': 'add something here later...'})
-
-
-
-@api_view(['POST'])
 @permission_classes((AllowAny, ))
 def date_create(request):
   form = DateForm(request.data)
@@ -54,7 +39,7 @@ def date_create(request):
     return JsonResponse(serializer.data, safe=False)
   else:
     return JsonResponse({'error': 'add somethime here later!...'})
-  
+
 @api_view(['POST'])
 def specialty_create(request):
   form = SpecialtyForm(request.data)
@@ -106,19 +91,9 @@ def date_list(request):
 @api_view(['GET'])
 @permission_classes((AllowAny, ))
 def services_list(request):
-    services = Services.objects.all()
+    services = Services.objects.all()[0:3]
 
     serializer = ServicesSerializer(services, many=True)
-    
-    return JsonResponse(serializer.data, safe=False)
-
-
-@api_view(['GET'])
-@permission_classes((AllowAny, ))
-def services_detail(request, slug):
-    services = Services.objects.all(slug=slug)
-
-    serializer = ServicesDetailSerializer(services)
     
     return JsonResponse(serializer.data, safe=False)
 
@@ -141,9 +116,21 @@ def specialty_list(request):
     return JsonResponse(serializer.data, safe=False)
 
 
+
+
+class ServiceDetail(APIView):
+  permission_classes = [AllowAny]
+  def get(self, request, slug, format=None):
+    service = Services.objects.get(slug=slug)
+    serializer = ServicesDetailSerializer(service)
+    return Response(serializer.data)
   
 
-   
-
+class DoctorDetail(APIView):
+  permission_classes = [AllowAny]
+  def get(self, request, slug, format=None):
+    doctor = Doctor.objects.get(slug=slug)
+    serializer = DoctorDetailSerializer(doctor)
+    return Response(serializer.data)
     
 

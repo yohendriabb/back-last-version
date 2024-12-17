@@ -15,7 +15,7 @@ SECRET_KEY = 'django-insecure-5@zij8vzeq+lb8)w&#sje7+f8t-xev^b5xrsfd3sayk@zz=ui5
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 AUTH_USER_MODEL = 'account.User' 
 
@@ -156,5 +156,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-WEBSITE_URL = 'https://yohendriabb.pythonanywhere.com'
-#WEBSITE_URL = 'http://127.0.0.1:8000'
+#WEBSITE_URL = 'https://yohendriabb.pythonanywhere.com'
+WEBSITE_URL = 'http://127.0.0.1:8000'

@@ -55,6 +55,7 @@ class DateSerializer(serializers.ModelSerializer):
             'name',
             'email',
             'slug',
+            'description',
             'phone',
             'date_at',
             'doctor'
@@ -99,6 +100,21 @@ class DoctorSerializer(serializers.ModelSerializer):
             'specialty',
             'get_thumbnails',
             'name',
+            'slug',
             'description',
         )
+
+
+class DoctorDetailSerializer(serializers.ModelSerializer):
+    specialty = serializers.StringRelatedField(read_only= True, many=True)
+    class Meta:
+        model = Doctor
+        fields = (
+            'specialty',
+            'get_thumbnails',
+            'name',
+            'slug',
+            'description',
+        )
+
 

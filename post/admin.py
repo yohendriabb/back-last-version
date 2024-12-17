@@ -3,8 +3,12 @@ from .models import PostAttachment, Reserve, Specialty, Doctor, Date, Services
 
 admin.site.register(Reserve)
 admin.site.register(PostAttachment)
-admin.site.register(Services)
 admin.site.register(Specialty)
+
+class ServicesAdmin(admin.ModelAdmin):
+    list_display = ['id', 'title', 'slug']
+admin.site.register(Services, ServicesAdmin)
+
 
 class DateAdmin(admin.ModelAdmin):
     list_display  = ['name', 'id', 'slug', 'email', 'phone', 'date_at', ]

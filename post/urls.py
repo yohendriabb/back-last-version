@@ -10,7 +10,8 @@ from .api import (
     date_list, 
     specialty_create, 
     doctor_create,
-    services_detail
+    ServiceDetail,
+    DoctorDetail,
 )
 
 
@@ -25,6 +26,7 @@ urlpatterns = [
      path('specialty-create/', specialty_create, name="specialty-create"),
      path('date-list/', date_list, name="date-list"),
      path('services/', services_list, name="services-list"),
-     path('services-detail/<slug:slug>/', services_detail, name="services-detail"),
+     path('servicesdetail/<slug:slug>/', ServiceDetail.as_view()),
+     path('doctordetail/<slug:slug>/', DoctorDetail.as_view()),
      
 ]

@@ -86,6 +86,7 @@ class Date(models.Model):
     name = models.CharField(max_length=20)
     email = models.EmailField(blank=True, null=True)
     phone = models.CharField(max_length=25, blank=True, null=True)
+    description = models.TextField(null=True, blank=True)
     slug = AutoSlugField(populate_from='name', unique=True)
     date_at = models.DateTimeField(blank=True, null=True)
     doctor = models.ManyToManyField(Doctor)
